@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run, little mouse... — тема для SillyTavern</title>
+<meta name="description" content="Готическая тема для SillyTavern в духе тёмного романа: свеча, роза, полароид и сердцебиение вместо кнопки отправки.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #EDF2F5;
+    --dim: #A9BECB;
+    --candle: #D9A46A;
+    --rose: #A3202F;
+    --rose-lit: #C8414F;
+    --night: #04070A;
+    --mono: 'JetBrains Mono', Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    font-family: 'Merriweather', Georgia, serif;
+    background:
+      radial-gradient(120% 60% at 50% -10%, rgba(24, 44, 58, .9) 0%, rgba(8, 14, 20, .95) 45%, var(--night) 100%),
+      var(--night);
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .35;
+    background-image: url("assets/bg.png");
+    background-size: cover; background-position: center;
+    filter: brightness(.35) saturate(.85) blur(1px);
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(90% 60% at 50% 30%, transparent 30%, rgba(4, 7, 10, .85) 100%);
+  }
+  .wrap { position: relative; z-index: 1; max-width: 1040px; margin: 0 auto; padding: 0 24px 90px; }
+
+  /* ---------- шапка ---------- */
+  header { text-align: center; padding: 84px 0 26px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: rgba(159, 184, 204, .65); margin-bottom: 22px;
+  }
+  .eyebrow .dot { color: var(--rose-lit); }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600; font-size: clamp(38px, 6.4vw, 74px); line-height: 1.05;
+    margin: 0; letter-spacing: 1px;
+    text-shadow: 0 0 40px rgba(140, 176, 200, .28), 0 0 90px rgba(163, 32, 47, .18);
+  }
+  h1 em {
+    font-style: italic; color: var(--candle);
+    text-shadow: 0 0 30px rgba(217, 164, 106, .45);
+  }
+  .sub {
+    margin: 20px auto 0; max-width: 620px; font-size: 16px; line-height: 1.8;
+    color: var(--dim);
+  }
+
+  /* ---------- кнопки ---------- */
+  .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 34px 0 8px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 15px 30px; border-radius: 3px; text-decoration: none;
+    font-family: 'Playfair Display', Georgia, serif; font-size: 17px; letter-spacing: .6px;
+    color: #1a1013;
+    background: linear-gradient(180deg, #E7B87C, #C08B52);
+    border: 1px solid rgba(255, 232, 200, .5);
+    box-shadow: 0 0 26px rgba(217, 164, 106, .35), inset 0 1px 0 rgba(255, 255, 255, .35);
+    transition: transform .2s ease, box-shadow .25s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(217, 164, 106, .55), inset 0 1px 0 rgba(255,255,255,.4); }
+  .btn.ghost {
+    color: var(--ink);
+    background: rgba(16, 26, 34, .7);
+    border: 1px solid rgba(110, 138, 160, .35);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+  }
+  .btn.ghost:hover { border-color: rgba(217, 164, 106, .6); box-shadow: 0 0 26px rgba(217, 164, 106, .25); }
+
+  /* ---------- превью в рамке ---------- */
+  .shot {
+    position: relative; margin: 56px 0 0; padding: 10px;
+    background: linear-gradient(180deg, rgba(20, 32, 42, .9), rgba(8, 14, 20, .95));
+    border: 1px solid rgba(217, 164, 106, .22);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, .75), 0 0 60px rgba(163, 32, 47, .12);
+    border-radius: 4px;
+  }
+  .shot::before {
+    content: ''; position: absolute; inset: 5px; pointer-events: none;
+    border: 1px solid rgba(217, 164, 106, .1);
+  }
+  .shot img { width: 100%; display: block; border-radius: 2px; }
+
+  /* ---------- секции ---------- */
+  section { margin-top: 76px; position: relative; }
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
+    font-size: 26px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 10px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  h2::before { content: '✦'; color: var(--candle); font-size: .8em; }
+  h2::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(217,164,106,.35), transparent); }
+  .lead { color: var(--dim); font-size: 15px; line-height: 1.8; margin: 0 0 26px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 16px; }
+  .card {
+    position: relative; padding: 22px 22px 24px;
+    background: linear-gradient(180deg, rgba(17, 28, 37, .88), rgba(8, 15, 21, .92));
+    border: 1px solid rgba(110, 138, 160, .22);
+    border-left: 2px solid rgba(217, 164, 106, .45);
+    border-radius: 2px 2px 14px 2px;
+    box-shadow: inset 26px 0 38px -34px rgba(217, 164, 106, .7);
+  }
+  .card h3 {
+    font-family: 'Playfair Display', Georgia, serif; font-size: 16px; letter-spacing: 1.5px;
+    text-transform: uppercase; margin: 0 0 8px; color: #DCE6ED;
+  }
+  .card p { margin: 0; font-size: 14px; line-height: 1.75; color: var(--dim); }
+  .card.rose { border-left-color: rgba(163, 32, 47, .6); background: linear-gradient(180deg, rgba(26, 18, 22, .9), rgba(9, 14, 20, .94)); box-shadow: inset 26px 0 38px -34px rgba(163, 32, 47, .8); }
+  .card.rose h3 { color: #E8D9DC; }
+
+  /* ---------- шаги ---------- */
+  ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; gap: 12px; }
+  ol.steps li {
+    counter-increment: s; position: relative; padding: 18px 20px 18px 66px;
+    background: rgba(12, 20, 27, .75); border: 1px solid rgba(110, 138, 160, .2);
+    font-size: 15px; line-height: 1.7; color: var(--dim);
+    border-radius: 2px;
+  }
+  ol.steps li::before {
+    content: counter(s, decimal-leading-zero);
+    position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+    font-family: var(--mono); font-size: 13px; letter-spacing: 1px;
+    color: var(--candle); opacity: .9;
+    padding-right: 14px; border-right: 1px solid rgba(217, 164, 106, .25);
+  }
+  ol.steps b { color: var(--ink); font-weight: 400; }
+  code {
+    font-family: var(--mono); font-size: .88em; padding: 2px 7px;
+    background: rgba(217, 164, 106, .09); border: 1px solid rgba(217, 164, 106, .18);
+    border-radius: 3px; color: #E7CFAE;
+  }
+
+  /* ---------- цитата ---------- */
+  .quote {
+    margin: 84px auto 0; max-width: 700px; text-align: center;
+    font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+    font-size: clamp(20px, 3vw, 30px); line-height: 1.6;
+    color: #D8C3A5; text-shadow: 0 0 30px rgba(217, 164, 106, .25);
+  }
+  .quote span { display: block; margin-top: 14px; font-family: var(--mono); font-style: normal; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(163, 32, 47, .85); }
+
+  /* ---------- подвал ---------- */
+  footer {
+    margin-top: 90px; padding-top: 26px; text-align: center;
+    border-top: 1px solid rgba(110, 138, 160, .18);
+    font-size: 14px; color: var(--dim);
+  }
+  footer a { color: var(--candle); text-decoration: none; border-bottom: 1px solid rgba(217, 164, 106, .3); }
+  footer a:hover { border-bottom-color: var(--candle); }
+  .heart { color: var(--rose-lit); }
+
+  @media (max-width: 640px) {
+    header { padding-top: 56px; }
+    .shot { padding: 6px; margin-top: 36px; }
+    section { margin-top: 56px; }
+    h2 { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow"><span class="dot">●</span> theme for sillytavern &nbsp;·&nbsp; dark romance</div>
+    <h1>Run, <em>little mouse</em>...</h1>
+    <p class="sub">
+      Готическая тема в духе тёмного романа: свеча на подоконнике, тёмно-красная роза,
+      полароид на стене — и кто-то, кто смотрит из темноты.
+      Пока персонаж печатает, вместо «отправить» бьётся сердце.
+    </p>
+    <div class="cta">
+      <a class="btn" href="https://github.com/satsvi97/run-little-mouse/releases/latest/download/run-little-mouse.json">Скачать тему</a>
+      <a class="btn ghost" href="https://github.com/satsvi97/run-little-mouse">GitHub</a>
+    </div>
+  </header>
+
+  <div class="shot">
+    <img src="screenshots/main.png" alt="Главный экран темы" loading="lazy">
+  </div>
+
+  <section>
+    <h2>Что внутри</h2>
+    <p class="lead">Тёмная ночь, свеча и роза. Всё остальное — детали, из которых складывается настроение.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Полароид</h3>
+        <p>Сцена у окна: свеча, роза и рамка полароида. Фото персонажа лежит под бумагой — поворачивается и обрезается вместе с рамкой.</p>
+      </div>
+      <div class="card">
+        <h3>Две разные плашки</h3>
+        <p>У него — холодный стальной лист с рваным краем и меткой <b>rec</b>. У неё — тёмно-бордовая записка с загнутым уголком.</p>
+      </div>
+      <div class="card">
+        <h3>Сердцебиение</h3>
+        <p>Самолётик превращается в пульсирующее сердце, пока идёт генерация, и возвращается, когда ответ готов.</p>
+      </div>
+      <div class="card">
+        <h3>Живая панель ввода</h3>
+        <p>Свечной свет слева, ползучий туман, тлеющие угли и бабочка у правого края.</p>
+      </div>
+      <div class="card">
+        <h3>Экран загрузки</h3>
+        <p>Без логотипа SillyTavern: только бьющееся сердце и тихая надпись «Инициализация…».</p>
+      </div>
+      <div class="card rose">
+        <h3>Шрифты и цвет</h3>
+        <p>Playfair Display и Merriweather. Свеча <code>#D9A46A</code>, роза <code>#A3202F</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Установка</h2>
+    <p class="lead">Один файл. Картинки тема берёт сама — с этой страницы. Ничего копировать не нужно.</p>
+    <ol class="steps">
+      <li>Скачайте <b>run-little-mouse.json</b> по кнопке выше.</li>
+      <li>В SillyTavern откройте панель тем (иконка палитры) и нажмите <b>Import</b>.</li>
+      <li>Выберите тему <b>«Run, little mouse...»</b> и обновите страницу (<code>Ctrl+Shift+R</code>).</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Скриншоты</h2>
+    <div class="shot"><img src="screenshots/plates.png" alt="Плашки сообщений" loading="lazy"></div>
+    <div class="shot" style="margin-top:18px"><img src="screenshots/input.png" alt="Панель ввода" loading="lazy"></div>
+  </section>
+
+  <p class="quote">
+    «Run, if I catch you…»
+    <span>made with love</span>
+  </p>
+
+  <footer>
+    Сделано с любовью <span class="heart">♥</span>
+    <a href="https://satsvi97.github.io/selena/">Selena's Tavern</a>
+    &nbsp;·&nbsp; лицензия MIT
+  </footer>
+
+</div>
+</body>
+</html>

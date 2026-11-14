@@ -1,121 +1,147 @@
-# Run, little mouse...
+<div align="center">
 
-**Готическая тема для SillyTavern** — тёмный роман в интерфейсе: ночной склеп, свеча на подоконнике, тёмно-красная роза, полароид на стене и блокнот писательницы, за которой кто-то наблюдает.
+<img src="screenshots/main.png" alt="Run, little mouse..." width="100%">
 
-> **Сделано с любовью ✦ Selena's Tavern ✦**
-> [satsvi97.github.io/selena](https://satsvi97.github.io/selena/)
+<h1>Run, little mouse...</h1>
 
-![Главный экран](screenshots/main.png)
+<em>«Run, if I catch you…»</em>
 
----
+<br><br>
 
-## Что внутри
+<img alt="release" src="https://img.shields.io/github/v/release/satsvi97/run-little-mouse?style=flat-square&color=A3202F&labelColor=0A1319">
+<img alt="license" src="https://img.shields.io/badge/license-MIT-A3202F?style=flat-square&labelColor=0A1319">
+<img alt="theme" src="https://img.shields.io/badge/SillyTavern-1.18-D9A46A?style=flat-square&labelColor=0A1319">
 
-**Палитра и шрифты**
-- холодная сине-серая ночь `#0A1319 → #04070A`
-- акценты: свеча `#D9A46A`, роза `#A3202F`
-- Playfair Display (заголовки) + Merriweather (текст)
+<br><br>
 
-**Аватар-полароид**
-Сцена с окном, свечой и розой; фото персонажа лежит в «окне» рамки под бумагой — фото поворачивается и обрезается вместе с полароидом. Нужен портрет, а не широкий арт.
+<b>Готическая тема для SillyTavern в духе тёмного романа.</b><br>
+Свеча на подоконнике, тёмно-красная роза, полароид на стене — и кто-то, кто смотрит из темноты.
 
-**Панель ввода**
-Тёплый свет свечи слева, холодный туман, поднимающиеся угли и живая бабочка у правого края. В пустом поле — красная строка *«Run, if I catch you…»*.
+<br><br>
 
-**Сердцебиение вместо «отправить»**
-Пока персонаж печатает, самолётик сменяется пульсирующим сердцем — и возвращается, когда ответ готов.
+<a href="https://satsvi97.github.io/run-little-mouse/">
+  <img alt="Открыть страницу темы" src="https://img.shields.io/badge/✦_страница_темы_✦-D9A46A?style=for-the-badge&labelColor=0A1319">
+</a>
+&nbsp;
+<a href="https://github.com/satsvi97/run-little-mouse/releases/latest/download/run-little-mouse.json">
+  <img alt="Скачать тему" src="https://img.shields.io/badge/скачать_тему-A3202F?style=for-the-badge&labelColor=0A1319">
+</a>
 
-**Две разные плашки**
-- **он:** холодный стальной лист, арка сверху, золотая кромка слева, обтрепанный нижний край, метка `rec` в углу;
-- **она:** тёмно-бордовая записка, загнутый уголок, розовая кромка справа.
+<br><br>
 
-У обоих — бумажное зерно, моноширинное время с красной точкой, кнопки-печати, ромб-разделитель и мягкое появление сообщения.
+**Сделано с любовью ✦ [Selena's Tavern](https://satsvi97.github.io/selena/) ✦**
 
-**Экран загрузки**
-Без логотипа SillyTavern: только бьющееся сердце и надпись «Инициализация…».
-
-**Иконки**
-Свой набор PNG-иконок в топбаре вместо стандартных, тематические иконки у поля ввода.
+</div>
 
 ---
 
-## Скриншоты
+## Установка — один файл
 
-| Плашки: он и она | Панель ввода |
-|---|---|
-| ![Плашки](screenshots/plates.png) | ![Панель ввода](screenshots/input.png) |
+**Скачайте [`run-little-mouse.json`](https://github.com/satsvi97/run-little-mouse/releases/latest/download/run-little-mouse.json)** и импортируйте его в SillyTavern.
 
-![Экран загрузки](screenshots/splash.png)
+1. Панель тем (иконка палитры) → **Import** → выберите скачанный файл.
+2. Выберите тему **«Run, little mouse...»**.
+3. Обновите страницу — `Ctrl+Shift+R`.
 
----
+Картинки тема подгружает сама с [этой страницы](https://satsvi97.github.io/run-little-mouse/) — ничего копировать не нужно.
+Работает и на телефоне: тот же один файл.
 
-## Установка
+<details>
+<summary>Если интернет недоступен или хочется локальные картинки</summary>
 
-> **Скачать:** [**run-little-mouse.zip**](https://github.com/satsvi97/run-little-mouse/releases/latest) — внутри уже всё: тема и картинки.
+<br>
 
-### Вариант 1 — готовый файл (самый простой)
+1. Скачайте [`run-little-mouse.zip`](https://github.com/satsvi97/run-little-mouse/releases/latest/download/run-little-mouse.zip).
+2. Распакуйте: внутри `run-little-mouse.json` и `public/nightwood/`.
+3. Скопируйте содержимое `public/nightwood/` в `<SillyTavern>/public/nightwood/`.
+4. Файл темы — в `data/default-user/themes/` (или через **Import**).
 
-1. Скачайте `run-little-mouse.zip` из [последнего релиза](https://github.com/satsvi97/run-little-mouse/releases/latest)
-   (или весь репозиторий: **Code → Download ZIP**).
-2. Распакуйте. В архиве:
-   ```
-   run-little-mouse.json      ← сам файл темы
-   public/nightwood/...       ← картинки темы
-   ```
-3. Скопируйте **содержимое** `public/nightwood/` в `<SillyTavern>/public/nightwood/`
-   (папку создайте, если её нет — путь важен: тема ссылается на `/nightwood/...`).
-4. Положите `run-little-mouse.json` в `<SillyTavern>/data/default-user/themes/`
-   **или** импортируйте его в интерфейсе: панель тем → **Import**.
-5. Обновите страницу и выберите тему **«Run, little mouse...»**.
-
-### Вариант 2 — скрипт (Windows)
-
-Из корня репозитория:
+Либо одной командой на Windows:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tools/install.ps1 -StPath "C:\SillyTavern"
 ```
 
-Скрипт сам разложит картинки и тему по нужным папкам.
+</details>
 
-### Вариант 3 — сборка из CSS
+---
 
-Если правите `css/run-little-mouse.css` — пересоберите JSON:
+## Что внутри
 
-```bash
-node tools/build-theme.js "C:/SillyTavern"
-```
+<table>
+<tr>
+<td width="50%" valign="top">
 
-Скрипт создаст тему в `data/default-user/themes/` и пропишет её в `settings.json`,
-так что хватит `Ctrl+R` без перевыбора темы.
+**Полароид**
+Сцена у окна: свеча, роза и рамка полароида. Фото персонажа лежит под бумагой — поворачивается вместе с рамкой. Нужен портрет (~3:4), а не широкий арт.
 
-> **Про картинки.** Тема не тянет их с GitHub — она ссылается на локальные файлы
-> `/nightwood/...` внутри вашей установки SillyTavern. Поэтому папку `assets/`
-> (или `public/nightwood/` из архива) обязательно нужно положить в `public/nightwood/`.
-> Картинки в README — только превью.
+**Две разные плашки**
+У него — холодный стальной лист: арка, золотая кромка слева, рваный нижний край, метка `rec`. У неё — тёмно-бордовая записка с загнутым уголком и розовой кромкой.
+
+**Сердцебиение**
+Пока идёт генерация, «отправить» превращается в пульсирующее сердце — и возвращается, когда ответ готов.
+
+</td>
+<td width="50%" valign="top">
+
+**Панель ввода**
+Тёплый свет свечи слева, холодный туман, поднимающиеся угли и живая бабочка у правого края. В пустом поле — красная строка «Run, if I catch you…».
+
+**Экран загрузки**
+Без логотипа SillyTavern: только бьющееся сердце и «Инициализация…».
+
+**Палитра**
+Холодная сине-серая ночь `#0A1319 → #04070A`, свеча `#D9A46A`, роза `#A3202F`.
+Playfair Display + Merriweather.
+
+</td>
+</tr>
+</table>
+
+<p align="center">
+  <img src="screenshots/plates.png" alt="Плашки сообщений" width="88%">
+</p>
+
+<p align="center">
+  <img src="screenshots/input.png" alt="Панель ввода" width="88%">
+</p>
 
 ---
 
 ## Совместимость
 
-- SillyTavern **1.18** (проверено), нужен современный Chromium/Electron — используются `:has()`, маски и CSS-анимации.
-- Часть эффектов отключается при `prefers-reduced-motion: reduce`.
+- SillyTavern **1.18** (проверено), нужен современный Chromium / Electron — используются `:has()`, CSS-маски и анимации.
+- Эффекты отключаются при `prefers-reduced-motion: reduce`.
 
 ## Структура
 
 ```
 css/run-little-mouse.css   — исходник темы (весь CSS)
 tools/build-theme.js       — сборка JSON-темы для SillyTavern
-dist/run-little-mouse.json — готовая тема для импорта
-assets/                    — картинки (кладём в public/nightwood)
-screenshots/               — превью для README
+tools/install.ps1          — установка в локальную копию ST (Windows)
+dist/run-little-mouse.json — готовая тема
+assets/                    — картинки (раздаются через GitHub Pages)
+screenshots/               — превью
+index.html                 — страница темы
 ```
+
+## Сборка из исходника
+
+```bash
+node tools/build-theme.js "C:/SillyTavern"
+```
+
+Скрипт соберёт тему в `data/default-user/themes/` и пропишет её в `settings.json` —
+дальше достаточно `Ctrl+R`.
 
 ## Лицензия
 
-MIT — см. [LICENSE](LICENSE). Картинки в `assets/` — часть оформления темы, используйте их вместе с ней.
+MIT — см. [LICENSE](LICENSE). Картинки в `assets/` — часть оформления темы.
 
 ---
 
-**Сделано с любовью ✦ Selena's Tavern ✦**
-[satsvi97.github.io/selena](https://satsvi97.github.io/selena/)
+<div align="center">
+
+**Сделано с любовью ✦ [Selena's Tavern](https://satsvi97.github.io/selena/) ✦**
+
+</div>

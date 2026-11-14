@@ -14,7 +14,7 @@ body {
     font-family: 'Merriweather', Georgia, serif !important;
     font-weight: 400 !important;
     background-color: #04070A !important;
-    background-image: url('/nightwood/bg.png') !important;
+    background-image: url('https://satsvi97.github.io/run-little-mouse/assets/bg.png') !important;
     background-size: cover !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
@@ -66,7 +66,7 @@ body.bubblechat .mes, .mes {
     width: 250px !important;
     height: 250px !important;
     margin: 0 auto 10px auto !important;
-    background: url('/nightwood/avatar-frame.png') center center / cover no-repeat !important;
+    background: url('https://satsvi97.github.io/run-little-mouse/assets/avatar-frame.png') center center / cover no-repeat !important;
     border: none !important;
     border-radius: 14px !important;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(140, 180, 205, 0.18) !important;
@@ -100,7 +100,7 @@ body.bubblechat .mes, .mes {
     position: absolute !important;
     inset: 0 !important;
     z-index: 2 !important;
-    background: url('/nightwood/avatar-frame.png') center center / cover no-repeat !important;
+    background: url('https://satsvi97.github.io/run-little-mouse/assets/avatar-frame.png') center center / cover no-repeat !important;
     pointer-events: none !important;
 }
 
@@ -470,15 +470,15 @@ body[data-swiping="true"]:not(:has(#mes_stop[style*="flex"])) #send_but::after {
     justify-content: center !important;
 }
 
-#leftNavDrawerIcon::before              { background-image: url('/nightwood/i1.png') !important; }
-#sys-settings-button .drawer-icon::before       { background-image: url('/nightwood/i2.png') !important; }
-#advanced-formatting-button .drawer-icon::before{ background-image: url('/nightwood/i3.png') !important; }
-#WI-SP-button .drawer-icon::before              { background-image: url('/nightwood/i4.png') !important; }
-#user-settings-button .drawer-icon::before      { background-image: url('/nightwood/i5.png') !important; }
-#backgrounds-button .drawer-icon::before        { background-image: url('/nightwood/i6.png') !important; }
-#extensions-settings-button .drawer-icon::before{ background-image: url('/nightwood/i7.png') !important; }
-#persona-management-button .drawer-icon::before { background-image: url('/nightwood/i8.png') !important; }
-#rightNavDrawerIcon::before             { background-image: url('/nightwood/i9.png') !important; }
+#leftNavDrawerIcon::before              { background-image: url('https://satsvi97.github.io/run-little-mouse/assets/i1.png') !important; }
+#sys-settings-button .drawer-icon::before       { background-image: url('https://satsvi97.github.io/run-little-mouse/assets/i2.png') !important; }
+#advanced-formatting-button .drawer-icon::before{ background-image: url('https://satsvi97.github.io/run-little-mouse/assets/i3.png') !important; }
+#WI-SP-button .drawer-icon::before              { background-image: url('https://satsvi97.github.io/run-little-mouse/assets/i4.png') !important; }
+#user-settings-button .drawer-icon::before      { background-image: url('https://satsvi97.github.io/run-little-mouse/assets/i5.png') !important; }
+#backgrounds-button .drawer-icon::before        { background-image: url('https://satsvi97.github.io/run-little-mouse/assets/i6.png') !important; }
+#extensions-settings-button .drawer-icon::before{ background-image: url('https://satsvi97.github.io/run-little-mouse/assets/i7.png') !important; }
+#persona-management-button .drawer-icon::before { background-image: url('https://satsvi97.github.io/run-little-mouse/assets/i8.png') !important; }
+#rightNavDrawerIcon::before             { background-image: url('https://satsvi97.github.io/run-little-mouse/assets/i9.png') !important; }
 
 /* кнопки шапки окна чата — тонкие ✦ вместо дефолтных */
 #chat .mes_edit::before, #chat .mes_hide::before, #chat .mes_unhide::before {
@@ -731,7 +731,7 @@ body[data-swiping="true"]:not(:has(#mes_stop[style*="flex"])) #send_but::after {
     inset: 0 !important;
     z-index: 0 !important;
     pointer-events: none !important;
-    background-image: url('/nightwood/butterfly.gif') !important;
+    background-image: url('https://satsvi97.github.io/run-little-mouse/assets/butterfly.gif') !important;
     background-repeat: no-repeat !important;
     background-size: 40px auto !important;
     background-position: right 184px center !important;
