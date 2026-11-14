@@ -1,0 +1,767 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Merriweather:ital,wght@0,300;0,400;0,600;1,400&display=swap');
+
+/* ============================================================
+   RUN, LITTLE MOUSE... — готическая тема для SillyTavern
+   Структура родной темы сохранена 1:1, изменены палитра, фон,
+   шрифты и иконки.
+
+   Сделано с любовью ✦ Selena's Tavern ✦
+   https://satsvi97.github.io/selena/
+   ============================================================ */
+
+/* ====== ОБЩИЙ ФОН И ШРИФТ ====== */
+body {
+    font-family: 'Merriweather', Georgia, serif !important;
+    font-weight: 400 !important;
+    background-color: #04070A !important;
+    background-image: url('/nightwood/bg.png') !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    color: #E4EAEE !important;
+}
+
+/* ====== ЦЕНТРОВКА ЧАТА ======
+   ST (MovingUI) хранит перетащенную позицию панели и подставляет её в left —
+   из-за этого чат уезжает вправо. Возвращаем по центру. */
+#sheld {
+    left: 50% !important;
+    margin: 0 !important;
+    transform: translateX(-50%) !important;
+    width: min(1080px, 76vw) !important;
+}
+
+/* ====== СТАНДАРТНЫЕ СООБЩЕНИЯ И ПЛАШКИ ====== */
+body.bubblechat .mes, .mes {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    border: none !important;
+    padding: 16px 12px;
+}
+
+#chat .mes_block {
+    background: rgba(16, 28, 36, 0.62) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(110, 138, 160, 0.34) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+    padding: 20px !important;
+    width: 95% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* ====== АВАТАРКИ: ПОЛАРОИД ======
+   Баннер — avatar-frame.png: сцена + рамка полароида, внутри рамки прозрачное «окно».
+   Фото персонажа лежит ПОД рамкой ровно в окне, рамка (слой ::after) накрывает его сверху. */
+.mes .mesAvatarWrapper::after { display: none !important; content: none !important; }
+
+.mes .avatar {
+    position: relative !important;
+    flex: 0 0 auto !important;
+    width: 250px !important;
+    height: 250px !important;
+    margin: 0 auto 10px auto !important;
+    background: url('/nightwood/avatar-frame.png') center center / cover no-repeat !important;
+    border: none !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(140, 180, 205, 0.18) !important;
+    overflow: hidden !important;
+}
+
+.mes .avatar img {
+    position: absolute !important;
+    z-index: 1 !important;
+    left: 24.31% !important;
+    top: 11.01% !important;
+    width: 51.26% !important;
+    height: 45.28% !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    object-fit: cover !important;
+    object-position: 50% 25% !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    transform: none !important;
+}
+
+/* рамка поверх фото: перекрывает края снимка, в окне прозрачна */
+.mes .avatar::after {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 2 !important;
+    background: url('/nightwood/avatar-frame.png') center center / cover no-repeat !important;
+    pointer-events: none !important;
+}
+
+@media screen and (min-width: 1024px) {
+    .mes .avatar {
+        width: 850px !important;
+        height: auto !important;
+        aspect-ratio: 850 / 349 !important;
+        background-size: 100% 100% !important;
+        border-radius: 16px !important;
+    }
+    .mes .avatar img {
+        left: 39.41% !important;
+        top: 11.01% !important;
+        width: 21.06% !important;
+        height: 45.28% !important;
+    }
+    .mes .avatar::after {
+        background-size: 100% 100% !important;
+    }
+}
+
+/* ====== ИМЕНА И ВРЕМЯ ====== */
+.mes_block .ch_name { display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; padding: 10px !important; width: 100% !important; margin-bottom: 15px; }
+.name_text { font-family: 'Playfair Display', Georgia, serif !important; font-weight: 600 !important; font-size: 1.4em !important; color: #DCE6ED !important; letter-spacing: 2px !important; text-transform: uppercase !important; text-shadow: 0 0 10px rgba(140, 176, 200, 0.45) !important; }
+.name_text::before, .name_text::after { content: "✦" !important; font-size: 0.8em !important; margin: 0 8px !important; color: rgba(150, 180, 200, 0.75) !important; }
+.timestamp { color: rgba(128, 149, 166, 0.9) !important; font-family: 'Merriweather', Georgia, serif !important; font-style: italic !important; font-size: .85em !important; text-align: center !important; }
+
+/* ====== СЧЕТЧИКИ (под аватаркой, по центру) ======
+   .avatar занимает целую строку, псевдоэлемент-разрыв ::before сдвигает
+   счётчики (#ID, таймер, токены) на следующую строку, justify-content: center
+   центрует и баннер, и ряд счётчиков. */
+.mesAvatarWrapper {
+    position: relative !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    gap: 6px 8px !important;
+    padding: 0 !important;
+    margin: 0 0 6px 0 !important;
+}
+.mesAvatarWrapper > .avatar { flex: 0 0 auto !important; order: 0 !important; display: flex !important; justify-content: center !important; margin: 0 !important; }
+.mesAvatarWrapper::before { content: '' !important; flex-basis: 100% !important; height: 0 !important; order: 1 !important; }
+.mesAvatarWrapper > .mesIDDisplay, .mesAvatarWrapper > .mes_timer, .mesAvatarWrapper > .tokenCounterDisplay {
+    order: 2 !important;
+    display: inline-flex !important; align-items: center !important; max-height: 20px !important; padding: 4px 12px !important; border-radius: 10px !important; font-size: 0.78em !important; border: 1px solid rgba(110, 138, 160, 0.34) !important; color: #9FB8CC !important; background: transparent !important;
+}
+
+/* ====== ТЕКСТ ====== */
+.mes_text { background: transparent !important; padding: 16px 14px; font-size: 1em !important; font-weight: 500 !important; line-height: 1.7 !important; color: #EDF2F5 !important; text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8) !important; width: 100% !important; border: none !important; }
+.mes_text em, .mes_text i { font-style: italic !important; color: #A9BECB !important; background: transparent !important; }
+
+/* ========================================================= */
+/* ====== ПЛАШКИ: ДВА ХАРАКТЕРА ====== */
+/* ОН — холодный лист: сталь, арка сверху, свечная кромка слева, */
+/* обтрепанный низ, метка rec.                                   */
+/* ОНА — записка: тёплая роза, загнутый уголок, кромка справа.    */
+/* ========================================================= */
+#chat .mes { position: relative !important; animation: nwSettle .55s cubic-bezier(.2, .7, .3, 1) both !important; }
+@keyframes nwSettle {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+}
+
+#chat .mes_block { position: relative !important; overflow: hidden !important; isolation: isolate !important; }
+/* бумажное зерно поверх плашки — очень мелкое, почти незаметное */
+#chat .mes_block::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    opacity: 0.45 !important;
+    mix-blend-mode: overlay !important;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.45'/></svg>") !important;
+}
+/* текст и шапка — над зерном */
+#chat .mes_block .ch_name, #chat .mes_block .mes_text { position: relative !important; z-index: 2 !important; }
+
+/* ---------- ОН ---------- */
+#chat .mes[is_user="false"] .mes_block {
+    background:
+        radial-gradient(120% 170% at 10% 0%, rgba(40, 46, 44, 0.30), rgba(16, 27, 35, 0) 48%),
+        linear-gradient(180deg, rgba(17, 28, 37, 0.94), rgba(8, 15, 21, 0.96)) !important;
+    border: 1px solid rgba(110, 138, 160, 0.26) !important;
+    border-left: 2px solid rgba(217, 164, 106, 0.50) !important;
+    border-radius: 24px 24px 8px 8px !important;
+    box-shadow: inset 26px 0 38px -30px rgba(217, 164, 106, 0.85), -12px 0 30px -18px rgba(217, 164, 106, 0.85), 0 16px 40px rgba(0, 0, 0, 0.55) !important;
+    /* обтрепанный край: маска с шумом */
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='240'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.02 0.09' numOctaves='2' seed='11'/><feDisplacementMap in='SourceGraphic' scale='5' xChannelSelector='R' yChannelSelector='G'/></filter><rect x='2' y='2' width='596' height='236' rx='20' fill='white' filter='url(%23m)'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='240'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.02 0.09' numOctaves='2' seed='11'/><feDisplacementMap in='SourceGraphic' scale='5' xChannelSelector='R' yChannelSelector='G'/></filter><rect x='2' y='2' width='596' height='236' rx='20' fill='white' filter='url(%23m)'/></svg>");
+    -webkit-mask-size: 100% 100% !important;
+    mask-size: 100% 100% !important;
+}
+#chat .mes[is_user="false"] .mes_block .ch_name::before {
+    content: 'rec' !important;
+    position: absolute !important;
+    top: -12px !important;
+    right: -6px !important;
+    font-family: 'Consolas', 'Courier New', monospace !important;
+    font-size: 9px !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: rgba(200, 65, 79, 0.85) !important;
+    text-shadow: 0 0 8px rgba(163, 32, 47, 0.5) !important;
+    animation: nwRecBlink 2.4s ease-in-out infinite !important;
+    pointer-events: none !important;
+}
+@keyframes nwRecBlink { 0%, 62%, 100% { opacity: 1; } 78% { opacity: 0.25; } }
+
+/* ---------- ОНА ---------- */
+#chat .mes[is_user="true"] .mes_block {
+    background:
+        radial-gradient(120% 170% at 88% 0%, rgba(92, 30, 38, 0.42), rgba(24, 18, 22, 0) 50%),
+        linear-gradient(200deg, rgba(30, 20, 25, 0.94), rgba(10, 16, 22, 0.96)) !important;
+    border: 1px solid rgba(163, 32, 47, 0.22) !important;
+    border-right: 2px solid rgba(163, 32, 47, 0.55) !important;
+    border-radius: 6px 6px 22px 22px !important;
+    box-shadow: 12px 0 30px -18px rgba(163, 32, 47, 0.85), 0 16px 40px rgba(0, 0, 0, 0.55) !important;
+}
+/* загнутый уголок, как у вырванной страницы */
+#chat .mes[is_user="true"] .mes_block::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 30px !important;
+    height: 30px !important;
+    z-index: 3 !important;
+    pointer-events: none !important;
+    background: linear-gradient(225deg, rgba(48, 20, 26, 0.95) 0 50%, rgba(255, 255, 255, 0.07) 50% 100%) !important;
+    border-radius: 0 0 0 3px !important;
+}
+#chat .mes[is_user="true"] .mes_text em, #chat .mes[is_user="true"] .mes_text i { color: #C79AA2 !important; }
+
+/* имя и время: у неё — розовые нотки, у него — сталь */
+#chat .mes[is_user="true"] .name_text { color: #E8D9DC !important; text-shadow: 0 0 10px rgba(200, 65, 79, 0.35) !important; }
+#chat .mes[is_user="true"] .name_text::before, #chat .mes[is_user="true"] .name_text::after { color: rgba(200, 120, 130, 0.65) !important; }
+#chat .mes .timestamp {
+    font-family: 'Consolas', 'Courier New', monospace !important;
+    font-style: normal !important;
+    font-size: 0.72em !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    color: rgba(128, 149, 166, 0.85) !important;
+}
+#chat .mes .timestamp::before {
+    content: '●' !important;
+    font-size: 0.7em !important;
+    margin-right: 6px !important;
+    color: rgba(200, 65, 79, 0.9) !important;
+}
+
+/* разделитель-ромб между сообщениями */
+#chat .mes + .mes::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -2px !important;
+    left: 50% !important;
+    width: 5px !important;
+    height: 5px !important;
+    transform: translateX(-50%) rotate(45deg) !important;
+    background: rgba(110, 138, 160, 0.45) !important;
+    box-shadow: 0 0 8px rgba(140, 176, 200, 0.25) !important;
+    pointer-events: none !important;
+}
+
+/* кнопки-печати */
+#chat .mes_buttons .mes_button {
+    border-radius: 50% !important;
+    width: 22px !important;
+    height: 22px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: radial-gradient(circle at 34% 28%, rgba(217, 164, 106, 0.30), rgba(120, 78, 40, 0.16) 60%, rgba(10, 18, 24, 0.9) 100%) !important;
+    border: 1px solid rgba(217, 164, 106, 0.28) !important;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.10), 0 0 8px rgba(217, 164, 106, 0.12) !important;
+    color: rgba(230, 214, 196, 0.75) !important;
+    margin: 0 3px !important;
+    transition: box-shadow .25s ease, border-color .25s ease, transform .2s ease !important;
+}
+#chat .mes_buttons .mes_button:hover {
+    box-shadow: 0 0 12px rgba(217, 164, 106, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.16) !important;
+    transform: translateY(-1px) !important;
+}
+#chat .mes[is_user="true"] .mes_buttons .mes_button {
+    background: radial-gradient(circle at 34% 28%, rgba(200, 65, 79, 0.35), rgba(122, 21, 32, 0.25) 60%, rgba(12, 18, 24, 0.9) 100%) !important;
+    border-color: rgba(163, 32, 47, 0.42) !important;
+    color: rgba(240, 210, 210, 0.8) !important;
+}
+#chat .mes[is_user="true"] .mes_buttons .mes_button:hover {
+    box-shadow: 0 0 12px rgba(163, 32, 47, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.16) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #chat .mes { animation: none !important; }
+    #chat .mes[is_user="false"] .mes_block .ch_name::before { animation: none !important; }
+}
+
+/* ====== НИЖНЯЯ ПАНЕЛЬ ВВОДА ====== */
+#form_sheld, #send_form, #nonQRFormItems, #send_textarea { background-color: #080F15 !important; background-image: none !important; }
+#send_form { border-top: 1px solid rgba(110, 138, 160, 0.3) !important; padding: 8px !important; }
+#send_textarea { font-family: 'Merriweather', Georgia, serif !important; font-size: 14px !important; color: #E4EAEE !important; -webkit-appearance: none !important; box-shadow: none !important; border-radius: 0 !important; }
+#nonQRFormItems { position: relative !important; }
+/* подсказка в поле ввода: цитата Аделайн, тёмно-красным с мягким свечением */
+#nonQRFormItems:has(#send_textarea:placeholder-shown)::before {
+    content: "Run, if I catch you, I ᶠᶸᶜᵏᵧₒᵤ!𓂃🪶" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: #D0405A !important;
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-size: 17px !important;
+    font-style: italic !important;
+    letter-spacing: 0.4px !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+    text-shadow: 0 0 10px rgba(163, 32, 47, 0.85), 0 0 24px rgba(163, 32, 47, 0.45) !important;
+    z-index: 20 !important;
+}
+
+/* прячем родной placeholder ST — у нас своя строка выше */
+#send_textarea::placeholder {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    opacity: 0 !important;
+}
+
+/* ====== ПОЛЗУНКИ, ЧЕКБОКСЫ, СКРОЛЛБАРЫ ====== */
+input[type="range"] { -webkit-appearance: none !important; background: linear-gradient(to right, rgba(110, 138, 160, 0.35), rgba(159, 184, 204, 0.55)) !important; height: 8px !important; border-radius: 4px !important; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none !important; width: 32px !important; height: 32px !important; background: transparent url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text x="16" y="24" text-anchor="middle" font-size="28" fill="rgb(159,184,204)" style="font-family: Arial;">✦</text></svg>') center/contain no-repeat !important; border: none !important; cursor: pointer !important; filter: drop-shadow(0 2px 6px rgba(110, 138, 160, 0.45)) !important; }
+input[type="checkbox"] { -webkit-appearance: none !important; appearance: none !important; width: 22px !important; height: 22px !important; border: 2px solid rgba(126, 154, 176, 0.55) !important; border-radius: 6px !important; background-color: transparent !important; display: inline-block !important; position: relative !important; cursor: pointer !important; vertical-align: middle !important; margin-right: 10px !important; }
+input[type="checkbox"]:checked { background-color: #9FB8CC !important; border-color: #9FB8CC !important; }
+input[type="checkbox"]:checked::after { content: '✦' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; color: #080F15 !important; font-size: 16px !important; font-weight: bold !important; line-height: 1 !important; }
+#chat .mes input[type="checkbox"], .mesAvatarWrapper input[type="checkbox"] { display: none !important; }
+::-webkit-scrollbar-thumb { background: rgba(110, 138, 160, 0.45) !important; border-radius: 3px; }
+::-webkit-scrollbar-track { background: rgba(4, 7, 10, 0.55) !important; }
+
+/* ====== КНОПКА ОТПРАВКИ (СТРЕЛОЧКА) ====== */
+#send_but {
+    background: transparent !important; background-image: none !important; border: none !important; box-shadow: none !important;
+    position: relative !important; width: 45px !important; height: 45px !important; padding: 0 !important; overflow: visible !important;
+}
+#send_but::before, #send_but::after { display: none !important; content: none !important; background: none !important; }
+#send_but * { display: none !important; visibility: hidden !important; opacity: 0 !important; }
+#send_but::after {
+    content: '' !important; display: block !important; position: absolute !important; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 26px !important; height: 26px !important;
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="rgb(159,184,204)" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>') no-repeat center / contain !important;
+    filter: drop-shadow(0 0 8px rgba(160, 195, 215, 0.75)) !important;
+    z-index: 9999 !important; pointer-events: none !important; visibility: visible !important; opacity: 1 !important;
+    transition: filter 0.3s ease !important;
+}
+#send_but:hover::after {
+    filter: drop-shadow(0 0 10px rgba(217, 164, 106, 0.9)) !important;
+}
+/* самолётик виден всегда: без соединения с API — приглушён, при генерации прячется (кольцо) */
+#send_but.displayNone { display: block !important; }
+
+/* во время генерации ST прячет самолётик сразу тремя способами — ловим все:
+   body[data-generating], body[data-swiping] и кнопку «стоп» с inline display:flex */
+body[data-generating="true"] #send_but,
+body[data-generating="true"] #send_but.displayNone,
+body[data-swiping="true"] #send_but,
+body[data-swiping="true"] #send_but.displayNone,
+body:has(#mes_stop[style*="flex"]) #send_but,
+body:has(#mes_stop[style*="flex"]) #send_but.displayNone { display: none !important; }
+
+/* страховка: если кнопка «стоп» почему-то не показалась —
+   сердце рисуется прямо в самом самолётике (та же точка, без сдвига) */
+body[data-generating="true"]:not(:has(#mes_stop[style*="flex"])) #send_but,
+body[data-generating="true"]:not(:has(#mes_stop[style*="flex"])) #send_but.displayNone,
+body[data-swiping="true"]:not(:has(#mes_stop[style*="flex"])) #send_but,
+body[data-swiping="true"]:not(:has(#mes_stop[style*="flex"])) #send_but.displayNone { display: block !important; }
+body[data-generating="true"]:not(:has(#mes_stop[style*="flex"])) #send_but::after,
+body[data-swiping="true"]:not(:has(#mes_stop[style*="flex"])) #send_but::after {
+    background-image: var(--nw-heart) !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    width: 30px !important;
+    height: 30px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    animation: nwHeartbeat 1.8s ease-in-out infinite !important;
+    opacity: 1 !important;
+}
+#send_but.displayNone::after { opacity: 0.35 !important; filter: none !important; }
+#send_but.displayNone:hover::after { opacity: 0.7 !important; filter: drop-shadow(0 0 8px rgba(160, 195, 215, 0.75)) !important; }
+
+/* правило, прятавшее самолётик при открытой панели персонажей, убрано:
+   в ST 1.18 панель открыта почти всегда — кнопка пропадала совсем */
+
+/* ====== НИЖНИЕ ИКОНКИ СЛЕВА: тематические (по макету) ======
+   «розетка» (шестерёнка-цветок) — меню, искра — расширения, квадрат — персона. */
+#extensionsMenuButton { background: none !important; border: none !important; position: relative !important; font-size: 0 !important; }
+#extensionsMenuButton::before, #extensionsMenuButton i, #extensionsMenuButton img { display: none !important; }
+#extensionsMenuButton::after {
+    content: '' !important; position: absolute !important; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important; width: 20px !important; height: 20px !important;
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="rgb(159,184,204)" d="M12 3 C12.6 8.2 15.8 11.4 21 12 C15.8 12.6 12.6 15.8 12 21 C11.4 15.8 8.2 12.6 3 12 C8.2 11.4 11.4 8.2 12 3 Z"/></svg>') center / contain no-repeat !important;
+    filter: drop-shadow(0 0 8px rgba(160, 195, 215, 0.65)) !important;
+    z-index: 10 !important; opacity: 0.9 !important; transition: filter .25s ease, opacity .25s ease !important;
+}
+#extensionsMenuButton:hover::after { filter: drop-shadow(0 0 10px rgba(217, 164, 106, 0.85)) !important; opacity: 1 !important; }
+
+#options_button { background: transparent !important; border: none !important; position: relative !important; font-size: 0 !important; }
+#options_button::before, #options_button i { display: none !important; }
+#options_button::after {
+    content: '' !important; position: absolute !important; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important; width: 21px !important; height: 21px !important;
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="rgb(159,184,204)"><circle cx="12" cy="6.8" r="3.5"/><circle cx="16.5" cy="9.4" r="3.5"/><circle cx="16.5" cy="14.6" r="3.5"/><circle cx="12" cy="17.2" r="3.5"/><circle cx="7.5" cy="14.6" r="3.5"/><circle cx="7.5" cy="9.4" r="3.5"/></g><circle cx="12" cy="12" r="2.7" fill="rgb(8,15,21)"/></svg>') center / contain no-repeat !important;
+    filter: drop-shadow(0 0 8px rgba(160, 195, 215, 0.5)) !important;
+    z-index: 10 !important; opacity: 0.85 !important; transition: filter .25s ease, opacity .25s ease !important;
+}
+#options_button:hover::after { filter: drop-shadow(0 0 10px rgba(217, 164, 106, 0.8)) !important; opacity: 1 !important; }
+
+/* персона — аккуратный квадратик с тонкой рамкой, без «каретки» */
+#quickPersona { background: none !important; border: none !important; }
+#quickPersonaImg { width: 26px !important; height: 26px !important; object-fit: cover !important; border-radius: 7px !important; border: 1px solid rgba(126, 154, 176, 0.55) !important; box-shadow: 0 0 10px rgba(140, 180, 205, 0.2) !important; }
+#quickPersonaCaret { display: none !important; }
+
+#qr_button { background: transparent !important; border: none !important; position: relative !important; font-size: 0 !important; }
+#qr_button::before, #qr_button i { display: none !important; }
+#qr_button::after { content: '⭐️' !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; font-size: 26px !important; color: #9FB8CC !important; z-index: 10 !important; }
+
+.notification-badge, .badge, .fa-solid + .badge { background-color: #9FB8CC !important; color: #080F15 !important; border: 1px solid #C6D4E0 !important; }
+
+/* ====== ВЕРХНЯЯ ПАНЕЛЬ: по ширине чата, со скруглением ====== */
+#top-bar {
+    width: min(1080px, 76vw) !important;
+    left: 50% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    transform: translateX(-50%) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(110, 138, 160, 0.28) !important;
+    overflow: hidden !important;
+}
+
+/* ====== ИКОНКИ ИЗ МАКЕТА (PNG с альфой) ====== */
+#leftNavDrawerIcon::before,
+#rightNavDrawerIcon::before,
+#sys-settings-button .drawer-icon::before,
+#advanced-formatting-button .drawer-icon::before,
+#WI-SP-button .drawer-icon::before,
+#user-settings-button .drawer-icon::before,
+#backgrounds-button .drawer-icon::before,
+#extensions-settings-button .drawer-icon::before,
+#persona-management-button .drawer-icon::before {
+    content: "" !important;
+    color: transparent !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+    text-shadow: none !important;
+    width: var(--icon-size) !important;
+    height: var(--icon-size) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#leftNavDrawerIcon::before              { background-image: url('/nightwood/i1.png') !important; }
+#sys-settings-button .drawer-icon::before       { background-image: url('/nightwood/i2.png') !important; }
+#advanced-formatting-button .drawer-icon::before{ background-image: url('/nightwood/i3.png') !important; }
+#WI-SP-button .drawer-icon::before              { background-image: url('/nightwood/i4.png') !important; }
+#user-settings-button .drawer-icon::before      { background-image: url('/nightwood/i5.png') !important; }
+#backgrounds-button .drawer-icon::before        { background-image: url('/nightwood/i6.png') !important; }
+#extensions-settings-button .drawer-icon::before{ background-image: url('/nightwood/i7.png') !important; }
+#persona-management-button .drawer-icon::before { background-image: url('/nightwood/i8.png') !important; }
+#rightNavDrawerIcon::before             { background-image: url('/nightwood/i9.png') !important; }
+
+/* кнопки шапки окна чата — тонкие ✦ вместо дефолтных */
+#chat .mes_edit::before, #chat .mes_hide::before, #chat .mes_unhide::before {
+    content: "✦" !important;
+    font-family: 'Playfair Display', serif !important;
+    color: #9FB8CC !important;
+    font-size: 13px !important;
+}
+#chat .mes_edit, #chat .mes_hide, #chat .mes_unhide { font-size: 0 !important; color: transparent !important; }
+
+/* ====== СТОП-ГЕНЕРАЦИЯ: пока ждём ответ — сердцебиение ====== */
+/* состояние .generating = ST показывает «стоп», самолётик прячется,
+   на его месте бьётся сердце (луп-даб: два удара и пауза) */
+#mes_stop {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    position: relative !important;
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    font-size: 0 !important;
+}
+#mes_stop * { display: none !important; }
+#mes_stop::after {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    margin: auto !important;
+    width: 30px !important;
+    height: 30px !important;
+    background: var(--nw-heart) center / contain no-repeat !important;
+    animation: nwHeartbeat 1.8s ease-in-out infinite !important;
+    pointer-events: none !important;
+}
+@keyframes nwHeartbeat {
+    0%   { transform: scale(1);    filter: drop-shadow(0 0 5px rgba(196, 58, 74, 0.55)); }
+    7%   { transform: scale(1.24); filter: drop-shadow(0 0 13px rgba(232, 96, 110, 0.95)); }
+    14%  { transform: scale(1.04); filter: drop-shadow(0 0 7px rgba(196, 58, 74, 0.65)); }
+    22%  { transform: scale(1.16); filter: drop-shadow(0 0 11px rgba(232, 96, 110, 0.85)); }
+    34%  { transform: scale(1);    filter: drop-shadow(0 0 5px rgba(196, 58, 74, 0.5)); }
+    100% { transform: scale(1);    filter: drop-shadow(0 0 5px rgba(196, 58, 74, 0.5)); }
+}
+
+/* ====== ВЕРХНИЕ ИКОНКИ ====== */
+:root {
+    --icon-size: 38px;
+    /* сердце для состояния генерации (родное #A3202F, чуть светлее для свечения) */
+    --nw-heart: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="rgb(214,74,90)" d="M12 20.7 C12 20.7 3.3 15.2 3.3 9.5 C3.3 6.7 5.5 4.5 8.3 4.5 C10 4.5 11.4 5.4 12 6.6 C12.6 5.4 14 4.5 15.7 4.5 C18.5 4.5 20.7 6.7 20.7 9.5 C20.7 15.2 12 20.7 12 20.7 Z"/></svg>');
+}
+/* ряд иконок: компактный, по центру, ширина с чат */
+/* ряд иконок: растянут вдоль всей панели топбара */
+#top-settings-holder { width: min(1080px, 76vw) !important; margin: 4px auto 0 !important; left: 0 !important; justify-content: space-evenly !important; gap: 0 !important; }
+#top-settings-holder > .drawer { width: auto !important; flex: 0 0 auto !important; }
+#top-settings-holder .drawer-toggle { width: var(--icon-size) !important; min-width: 0 !important; padding: 0 !important; }
+#top-settings-holder .drawer-header { width: var(--icon-size) !important; }
+/* порядок кнопок — как в макете: пресеты, профиль соединения, форматирование,
+   лорбуки, настройки пользователя (центр), фоны, расширения, персона, персонаж */
+#ai-config-button { order: 1 !important; }
+#sys-settings-button { order: 2 !important; }
+#advanced-formatting-button { order: 3 !important; }
+#WI-SP-button { order: 4 !important; }
+#user-settings-button { order: 5 !important; }
+#backgrounds-button { order: 6 !important; }
+#extensions-settings-button { order: 7 !important; }
+#persona-management-button { order: 8 !important; }
+#rightNavHolder { order: 9 !important; }
+/* боковые панели при открытии: нормальная ширина вместо узкой колонки */
+#ai-config-button .drawer-content { width: min(480px, 42vw) !important; left: 0 !important; }
+#rightNavHolder .drawer-content { width: min(420px, 36vw) !important; right: 0 !important; }
+/* верхние панели: центрируем по экрану, чтобы не обрывались за краем */
+#top-settings-holder > .drawer:not(#ai-config-button):not(#rightNavHolder) .drawer-content {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(1700px, 96vw) !important;
+}
+#leftNavDrawerIcon, #rightNavDrawerIcon, #sys-settings-button .drawer-icon, #advanced-formatting-button .drawer-icon, #WI-SP-button .drawer-icon, #user-settings-button .drawer-icon, #backgrounds-button .drawer-icon, #extensions-settings-button .drawer-icon, #persona-management-button .drawer-icon { font-size: 0 !important; color: transparent !important; width: var(--icon-size) !important; height: var(--icon-size) !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+
+/* ========================================================= */
+/* ====== ФИКС ПОВТОРЯЮЩИХСЯ СООБЩЕНИЙ ====== */
+/* ========================================================= */
+.mes[is_user="false"] + .mes[is_user="false"] .mesAvatarWrapper { display: none !important; }
+.mes[is_user="false"] + .mes[is_user="false"] .ch_name { display: none !important; }
+.mes[is_user="false"] + .mes[is_user="false"] .mes_block {
+    margin-top: -10px !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+/* ========================================================= */
+/* ====== ФИКС КАРТИНОК ====== */
+/* ========================================================= */
+.mes[is_system="true"]:not(:has(img)),
+.mes.toolCall:not(:has(img)) {
+    display: none !important;
+}
+.swipes-counter, .mes_img_swipes {
+    display: none !important;
+}
+
+/* ========================================================= */
+/* ====== ЭКРАН ЗАГРУЗКИ: СЕРДЦЕБИЕНИЕ, БЕЗ ЛОГОТИПА ====== */
+/* ========================================================= */
+#load-spinner {
+    --spinner-size: 68px !important;
+    font-size: 0 !important;
+    animation: none !important;
+}
+/* родной спиннер ST внутри контейнера не нужен */
+#load-spinner > * { display: none !important; }
+#load-spinner::before {
+    content: '' !important;
+    display: block !important;
+    width: 68px !important;
+    height: 68px !important;
+    margin: 0 auto !important;
+    background: var(--nw-heart) center / contain no-repeat !important;
+    animation: nwHeartbeatBig 1.8s ease-in-out infinite !important;
+}
+@keyframes nwHeartbeatBig {
+    0%   { transform: scale(1);    filter: drop-shadow(0 0 10px rgba(196, 58, 74, 0.55)); }
+    7%   { transform: scale(1.22); filter: drop-shadow(0 0 26px rgba(232, 96, 110, 0.95)); }
+    14%  { transform: scale(1.04); filter: drop-shadow(0 0 14px rgba(196, 58, 74, 0.65)); }
+    22%  { transform: scale(1.14); filter: drop-shadow(0 0 22px rgba(232, 96, 110, 0.85)); }
+    34%  { transform: scale(1);    filter: drop-shadow(0 0 10px rgba(196, 58, 74, 0.5)); }
+    100% { transform: scale(1);    filter: drop-shadow(0 0 10px rgba(196, 58, 74, 0.5)); }
+}
+
+/* логотип SillyTavern со сплэша убираем совсем */
+.splash-logo { display: none !important; }
+
+/* текст «Initializing…» — в стиле темы, чтобы экран не выглядел голым */
+.splash-message {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
+    letter-spacing: 3px !important;
+    text-transform: uppercase !important;
+    color: rgba(159, 184, 204, 0.85) !important;
+    text-shadow: 0 0 14px rgba(140, 176, 200, 0.35) !important;
+}
+
+#preloader, #loader {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    background: #04070A !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2.2rem !important;
+}
+#preloader *, #loader * { background-color: transparent !important; }
+
+/* ========================================================= */
+/* ====== ГОТИЧЕСКИЙ ФОН ДЛЯ ПАНЕЛИ ВВОДА ======= */
+/* Свеча в левом нижнем углу (тёплое неровное мерцание),      */
+/* отсвет тёмной розы справа, по полосе плывёт холодный       */
+/* туман, снизу вверх поднимаются редкие угли.                */
+/* ========================================================= */
+#send_form {
+    position: relative !important;
+    overflow: hidden !important;
+    background:
+        radial-gradient(140% 300% at -4% 132%, rgba(198, 132, 66, 0.26), rgba(34, 26, 24, 0) 54%),
+        radial-gradient(85% 220% at 102% 118%, rgba(163, 32, 47, 0.18), rgba(30, 20, 22, 0) 58%),
+        radial-gradient(110% 220% at 74% -70%, rgba(128, 168, 200, 0.17), transparent 72%),
+        linear-gradient(180deg, #0A1319 0%, #070D12 58%, #050A0E 100%) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(110, 138, 160, 0.32) !important;
+    border-radius: 12px !important;
+    margin: 10px auto !important;
+    width: 95% !important;
+    box-shadow: inset 0 0 46px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(150, 190, 215, 0.10), 0 -5px 20px rgba(0, 0, 0, 0.35) !important;
+}
+#form_sheld, #nonQRFormItems, #send_textarea {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+/* слой 1: туман — четыре «клуба», ползущие по полосе с разной скоростью,
+   поверх них неровное мерцание свечи (как будто огонь дрогнул) */
+#send_form::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    background-image:
+        radial-gradient(ellipse 150px 70px at 20% 80%, rgba(158, 198, 226, 0.10), transparent 70%),
+        radial-gradient(ellipse 120px 55px at 48% 30%, rgba(140, 180, 212, 0.075), transparent 72%),
+        radial-gradient(ellipse 170px 75px at 76% 78%, rgba(168, 204, 230, 0.09), transparent 70%),
+        radial-gradient(ellipse 110px 50px at 96% 40%, rgba(140, 180, 212, 0.07), transparent 72%) !important;
+    background-size: 640px 200%, 460px 200%, 560px 200%, 380px 200% !important;
+    background-repeat: repeat-x !important;
+    /* без !important: иначе анимация background-position не работает */
+    background-position: 0 0, 0 0, 0 0, 0 0;
+    filter: blur(3px) !important;
+    animation: nwFogDrift 52s linear infinite, nwCandleFlicker 7s ease-in-out infinite alternate !important;
+}
+@keyframes nwFogDrift {
+    to { background-position: -640px 0, 460px 0, -560px 0, 380px 0; }
+}
+@keyframes nwCandleFlicker {
+    0%   { opacity: 0.70; }
+    22%  { opacity: 1; }
+    38%  { opacity: 0.78; }
+    55%  { opacity: 0.95; }
+    72%  { opacity: 0.82; }
+    88%  { opacity: 1; }
+    100% { opacity: 0.88; }
+}
+
+/* слой 2: угли — крошечные тлеющие искры медленно поднимаются вверх и уходят */
+#send_form::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    background-image:
+        radial-gradient(circle 1.6px at 10% 92%, rgba(244, 192, 130, 0.95), transparent 100%),
+        radial-gradient(circle 1.1px at 30% 70%, rgba(226, 166, 112, 0.75), transparent 100%),
+        radial-gradient(circle 1.8px at 52% 96%, rgba(250, 202, 142, 0.9), transparent 100%),
+        radial-gradient(circle 1.1px at 74% 64%, rgba(220, 158, 108, 0.7), transparent 100%),
+        radial-gradient(circle 1.4px at 90% 86%, rgba(240, 190, 132, 0.8), transparent 100%) !important;
+    background-size: 240px 190px !important;
+    background-repeat: repeat !important;
+    opacity: 0.75 !important;
+    animation: nwEmberRise 22s linear infinite !important;
+}
+@keyframes nwEmberRise {
+    from { background-position: 0 0; }
+    to { background-position: -60px -190px; }
+}
+
+/* слой 3: бабочка — живая гифка сидит у правого края полосы, в свете свечи;
+   крылья машет сама гифка, от нас — только лёгкое покачивание и тёплое свечение */
+#nonQRFormItems::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    background-image: url('/nightwood/butterfly.gif') !important;
+    background-repeat: no-repeat !important;
+    background-size: 40px auto !important;
+    background-position: right 184px center !important;
+    opacity: 0.92 !important;
+    filter: drop-shadow(0 0 7px rgba(217, 164, 106, 0.5)) !important;
+    /* transform — без !important: иначе анимация его не перебьёт */
+    animation: nwButterfly 7s ease-in-out infinite !important;
+}
+@keyframes nwButterfly {
+    0%   { transform: translateY(-1px) rotate(-3deg); }
+    50%  { transform: translateY(2px) rotate(3deg); }
+    100% { transform: translateY(-1px) rotate(-3deg); }
+}
+/* на узком экране бабочке тесно — иконки занимают почти всю ширину, убираем */
+@media screen and (max-width: 900px) {
+    #nonQRFormItems::after { display: none !important; }
+}
+
+/* на телефоне подсказка не влезает между иконками — прячем, чтобы не лезла на них */
+@media screen and (max-width: 600px) {
+    #nonQRFormItems:has(#send_textarea:placeholder-shown)::before { display: none !important; }
+}
+
+/* z-index не трогаем ниже подсказки, но свечение оставляем красным */
+#nonQRFormItems:has(#send_textarea:placeholder-shown)::before {
+    z-index: 3 !important;
+    text-shadow: 0 0 10px rgba(163, 32, 47, 0.85), 0 0 24px rgba(163, 32, 47, 0.45) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #send_form::before, #send_form::after, #nonQRFormItems::after,
+    #load-spinner::before, #mes_stop::after { animation: none !important; }
+}
