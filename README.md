@@ -51,16 +51,34 @@
 
 ## Установка
 
-### Вариант 1 — готовый файл (быстро)
+> **Скачать:** [**run-little-mouse.zip**](https://github.com/satsvi97/run-little-mouse/releases/latest) — внутри уже всё: тема и картинки.
 
-1. Скопируйте всё из папки `assets/` в `<SillyTavern>/public/nightwood/`
-   (папку `nightwood` создайте, если её нет — путь важен, тема ссылается на `/nightwood/...`).
-2. Импортируйте `dist/run-little-mouse.json` через панель тем SillyTavern
-   (иконка темы → **Import**) или просто положите файл в
-   `<SillyTavern>/data/default-user/themes/`.
-3. Выберите тему **«Run, little mouse...»** в списке и обновите страницу.
+### Вариант 1 — готовый файл (самый простой)
 
-### Вариант 2 — сборка из CSS
+1. Скачайте `run-little-mouse.zip` из [последнего релиза](https://github.com/satsvi97/run-little-mouse/releases/latest)
+   (или весь репозиторий: **Code → Download ZIP**).
+2. Распакуйте. В архиве:
+   ```
+   run-little-mouse.json      ← сам файл темы
+   public/nightwood/...       ← картинки темы
+   ```
+3. Скопируйте **содержимое** `public/nightwood/` в `<SillyTavern>/public/nightwood/`
+   (папку создайте, если её нет — путь важен: тема ссылается на `/nightwood/...`).
+4. Положите `run-little-mouse.json` в `<SillyTavern>/data/default-user/themes/`
+   **или** импортируйте его в интерфейсе: панель тем → **Import**.
+5. Обновите страницу и выберите тему **«Run, little mouse...»**.
+
+### Вариант 2 — скрипт (Windows)
+
+Из корня репозитория:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/install.ps1 -StPath "C:\SillyTavern"
+```
+
+Скрипт сам разложит картинки и тему по нужным папкам.
+
+### Вариант 3 — сборка из CSS
 
 Если правите `css/run-little-mouse.css` — пересоберите JSON:
 
@@ -70,6 +88,11 @@ node tools/build-theme.js "C:/SillyTavern"
 
 Скрипт создаст тему в `data/default-user/themes/` и пропишет её в `settings.json`,
 так что хватит `Ctrl+R` без перевыбора темы.
+
+> **Про картинки.** Тема не тянет их с GitHub — она ссылается на локальные файлы
+> `/nightwood/...` внутри вашей установки SillyTavern. Поэтому папку `assets/`
+> (или `public/nightwood/` из архива) обязательно нужно положить в `public/nightwood/`.
+> Картинки в README — только превью.
 
 ---
 
