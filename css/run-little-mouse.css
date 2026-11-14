@@ -57,34 +57,38 @@ body.bubblechat .mes, .mes {
 
 /* ====== АВАТАРКИ: ПОЛАРОИД ======
    Баннер — avatar-frame.png: сцена + рамка полароида, внутри рамки прозрачное «окно».
-   Фото персонажа лежит ПОД рамкой ровно в окне, рамка (слой ::after) накрывает его сверху. */
+   Фото персонажа лежит ПОД рамкой ровно в окне, рамка (слой ::after) накрывает его сверху.
+   Пропорции рамки (774 x 318) держим на любой ширине — тогда проценты окна всегда верные. */
 .mes .mesAvatarWrapper::after { display: none !important; content: none !important; }
 
 .mes .avatar {
     position: relative !important;
     flex: 0 0 auto !important;
-    width: 250px !important;
-    height: 250px !important;
+    width: min(100%, 850px) !important;
+    max-width: 850px !important;
+    height: auto !important;
+    aspect-ratio: 774 / 318 !important;
     margin: 0 auto 10px auto !important;
-    background: url('https://satsvi97.github.io/run-little-mouse/assets/avatar-frame.png') center center / cover no-repeat !important;
+    background: url('https://satsvi97.github.io/run-little-mouse/assets/avatar-frame.png') center center / 100% 100% no-repeat !important;
     border: none !important;
     border-radius: 14px !important;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(140, 180, 205, 0.18) !important;
     overflow: hidden !important;
 }
 
+/* окно в рамке (проценты от размера рамки, поэтому работают при любой ширине) */
 .mes .avatar img {
     position: absolute !important;
     z-index: 1 !important;
-    left: 24.31% !important;
-    top: 11.01% !important;
-    width: 51.26% !important;
-    height: 45.28% !important;
+    left: 39.6% !important;
+    top: 11.6% !important;
+    width: 20.7% !important;
+    height: 44.4% !important;
     max-width: none !important;
     max-height: none !important;
     margin: 0 !important;
     object-fit: cover !important;
-    object-position: 50% 25% !important;
+    object-position: 50% 30% !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -100,27 +104,8 @@ body.bubblechat .mes, .mes {
     position: absolute !important;
     inset: 0 !important;
     z-index: 2 !important;
-    background: url('https://satsvi97.github.io/run-little-mouse/assets/avatar-frame.png') center center / cover no-repeat !important;
+    background: url('https://satsvi97.github.io/run-little-mouse/assets/avatar-frame.png') center center / 100% 100% no-repeat !important;
     pointer-events: none !important;
-}
-
-@media screen and (min-width: 1024px) {
-    .mes .avatar {
-        width: 850px !important;
-        height: auto !important;
-        aspect-ratio: 850 / 349 !important;
-        background-size: 100% 100% !important;
-        border-radius: 16px !important;
-    }
-    .mes .avatar img {
-        left: 39.41% !important;
-        top: 11.01% !important;
-        width: 21.06% !important;
-        height: 45.28% !important;
-    }
-    .mes .avatar::after {
-        background-size: 100% 100% !important;
-    }
 }
 
 /* ====== ИМЕНА И ВРЕМЯ ====== */
@@ -745,13 +730,29 @@ body[data-swiping="true"]:not(:has(#mes_stop[style*="flex"])) #send_but::after {
     50%  { transform: translateY(2px) rotate(3deg); }
     100% { transform: translateY(-1px) rotate(-3deg); }
 }
-/* на узком экране бабочке тесно — иконки занимают почти всю ширину, убираем */
+/* ====== ТЕЛЕФОН И УЗКИЕ ЭКРАНЫ ======
+   шире интерфейс, мельче иконки, бабочка помельче, но на месте */
 @media screen and (max-width: 900px) {
-    #nonQRFormItems::after { display: none !important; }
+    #sheld {
+        width: 94vw !important;
+    }
+    #top-settings-holder {
+        width: 94vw !important;
+        margin-top: 2px !important;
+    }
+    :root { --icon-size: 27px; }
+
+    /* бабочка — меньше и левее ряда иконок */
+    #nonQRFormItems::after {
+        background-size: 26px auto !important;
+        background-position: right 158px center !important;
+    }
 }
 
 /* на телефоне подсказка не влезает между иконками — прячем, чтобы не лезла на них */
 @media screen and (max-width: 600px) {
+    #sheld { width: 95vw !important; }
+    :root { --icon-size: 25px; }
     #nonQRFormItems:has(#send_textarea:placeholder-shown)::before { display: none !important; }
 }
 
